@@ -59,8 +59,8 @@ resource "azurerm_network_security_group" "nsgs" {
   for_each = azurerm_subnet.subnets
 
   name                = "${each.value.name}-nsg"
-  location            = each.value.location
-  resource_group_name = each.value.resource_group_name
+  location            = azurerm_virtual_network.vnet.location
+  resource_group_name = azurerm_virtual_network.vnet.resource_group_name
 }
 
 resource "azurerm_subnet_network_security_group_association" "subnets_nsgs_associations" {
