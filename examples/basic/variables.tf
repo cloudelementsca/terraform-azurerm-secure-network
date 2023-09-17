@@ -7,7 +7,7 @@
 variable "resource_group_name" {
   description = "Name of the resource group that will contain the vnet."
   type        = string
-  default     = "vnet-rg"
+  default     = "secure-network-rg"
 }
 
 variable "location" {
