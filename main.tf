@@ -55,6 +55,21 @@ resource "azurerm_subnet" "subnets" {
   }
 }
 
+resource "azurerm_network_security_group" "nsgs" {
+  for_each = azurerm_subnet.subnets
+
+  name                = "${each.value.name}-nsg"
+  location            = each.value.location
+  resource_group_name = each.value.resource_group_name
+}
+
+resource "azurerm_subnet_network_security_group_association" "subnets_nsgs_associations" {
+  for_each = azurerm_network_security_group.nsgs
+
+  subnet_id                 = azurerm_subnet.subnets[each.key].id
+  network_security_group_id = azurerm_network_security_group.nsgs[each.key].id
+}
+
 resource "random_string" "random_string_vnet" {
   length  = 6
   special = false

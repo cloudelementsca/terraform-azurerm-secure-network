@@ -14,3 +14,8 @@ output "subnets" {
   description = "All subnets info."
   value       = azurerm_subnet.subnets
 }
+
+output "nsgs" {
+  description = "All nsgs info."
+  value       = azurerm_network_security_group.nsgs
+}
