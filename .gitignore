@@ -32,7 +32,3 @@ override.tf.json
 # Ignore CLI configuration files
 .terraformrc
 terraform.rc
-
-# ignore complex exmaples for now
-examples/multi_subnet/*
-tests/multi_subnet_test.go
