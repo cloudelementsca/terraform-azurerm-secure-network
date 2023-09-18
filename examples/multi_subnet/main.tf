@@ -9,7 +9,7 @@ resource "azurerm_resource_group" "network_rg" {
   tags     = var.tags
 }
 
-module "network" {
+module "secure_network" {
   source              = "../../"
   resource_group_name = azurerm_resource_group.network_rg.name
   location            = azurerm_resource_group.network_rg.location
@@ -30,7 +30,7 @@ module "network" {
           }
         }
       }
-      fe-subnet = { address_prefixes = ["10.19.3.0/24"] }
+      be-subnet = { address_prefixes = ["10.19.3.0/24"] }
     }
   }
   tags = var.tags
