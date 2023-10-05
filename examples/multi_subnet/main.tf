@@ -14,23 +14,23 @@ module "secure_network" {
   resource_group_name = azurerm_resource_group.network_rg.name
   location            = azurerm_resource_group.network_rg.location
   network = {
-    address_space = ["10.19.0.0/16"]
+    address_space = ["10.19.0.0/23"]
     subnets = {
-      pe-subnet = {
-        address_prefixes                              = ["10.19.1.0/24"]
-        private_endpoint_network_policies_enabled     = false
-        private_link_service_network_policies_enabled = false
+      firewall-subnet = {
+        address_prefixes  = ["10.19.1.0/24"]
+        name              = "AzureFirewallSubnet"
+        disable_nsg       = true
       }
+      be-subnet = { address_prefixes = ["10.19.2.0/24"] }
       aci-subnet = {
-        address_prefixes = ["10.19.2.0/24"]
+        address_prefixes = ["10.19.3.0/23"]
         service_delegations = {
           aci_delegation = {
             name    = "Microsoft.ContainerInstance/containerGroups"
             actions = ["Microsoft.Network/virtualNetworks/subnets/action"]
           }
         }
-      }
-      be-subnet = { address_prefixes = ["10.19.3.0/24"] }
+      }      
     }
   }
   tags = var.tags

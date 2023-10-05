@@ -30,6 +30,7 @@ variable "network" {
     subnets = optional(map(object({
       address_prefixes = optional(list(string))
       name             = optional(string)
+      disable_nsg      = optional(bool, false)
       service_delegations = optional(map(object({
         name    = string
         actions = list(string)

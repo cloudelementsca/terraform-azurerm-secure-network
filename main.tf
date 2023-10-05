@@ -56,7 +56,7 @@ resource "azurerm_subnet" "subnets" {
 }
 
 resource "azurerm_network_security_group" "nsgs" {
-  for_each = azurerm_subnet.subnets
+  for_each = { for subnet, subnet_values in var.network.subnets : subnet => subnet_values if subnet_values.disable_nsg != false }
 
   name                = "${each.value.name}-nsg"
   location            = azurerm_virtual_network.vnet.location
